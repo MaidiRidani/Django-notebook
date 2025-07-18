@@ -1,0 +1,16 @@
+# challenge
+
+###############    adding views and URLs   ####################
+
+# additions in challenges/views.py
+def january(request):
+    return HttpResponse("This is January")
+
+def february(request):
+    return HttpResponse("This is February")
+
+# also add the URLs in challenges/urls.py
+urlpatterns = [
+    path("january", views.january),
+    path("february", views.february),
+]

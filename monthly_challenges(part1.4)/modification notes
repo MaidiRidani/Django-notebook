@@ -1,0 +1,28 @@
+# challenge
+
+###############    create parameter conversion: string and int  ####################
+
+# changes in challenges/views.py
+def monthly_challenge_bynumber(request, month):
+    return HttpResponse(month)
+    
+
+def monthly_challenge(request, month):
+    challenge_text = None
+    if month == 'january':
+        challenge_text = "Eat something like fruit"
+    elif month == 'february':
+        challenge_text = "Don't eat this day"
+    elif month == 'march':
+        challenge_text = "Eat briefly today"
+    else:
+        return HttpResponseNotFound("Month not valid")
+    return HttpResponse(challenge_text)
+
+# also update challenges/urls.py
+urlpatterns = [
+    path("<int:month>", views.monthly_challenge_bynumber),
+    path("<str:month>", views.monthly_challenge),
+]
+
+# As you can see here, 'int' is prioritized to check integer routes first.

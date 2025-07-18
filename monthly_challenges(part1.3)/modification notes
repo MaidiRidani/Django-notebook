@@ -1,0 +1,34 @@
+# challenge
+
+###############    a bit more dynamic   ####################
+
+# addition in challenges/views.py
+def march(request):
+    return HttpResponse("This is March")
+
+# also add in challenges/urls.py
+path("march", views.march)
+
+# now imagine if we create many months or something that exceeds our capacity — this will become inefficient.
+# so what if we make it a bit more dynamic by relying on user input?
+
+# changes in challenges/views.py
+def monthly_challenge(request, month):
+    challenge_text = None
+    if month == 'january':
+        challenge_text = "Eat something like fruit"
+    elif month == 'february':
+        challenge_text = "Don't eat this day"
+    elif month == 'march':
+        challenge_text = "Eat briefly today"
+    else:
+        return HttpResponseNotFound("Month not valid")
+    return HttpResponse(challenge_text)
+
+# also add this in challenges/urls.py
+urlpatterns = [
+    path("<month>", views.monthly_challenge),
+]
+
+# this way, it's a bit more dynamic, because the input /challenges/<month> is captured
+# and used in if-else conditions. This is better than the static approach before.
