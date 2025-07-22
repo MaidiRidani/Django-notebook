@@ -1,0 +1,29 @@
+modifikasi challenges/views.py - buat lebih dinamis
+
+monthly_challenges = {
+    "january": "Eat something like fruit",
+    "february": "Don't eat this day",
+    "march": "Eat briefly today",
+    "april": "Try a new healthy recipe",
+    "may": "Go for a walk every morning",
+    "june": "Drink 2 liters of water daily",
+    "july": "No sugary snacks for a week",
+    "august": "Cook your own meals all week",
+    "september": "Eat more vegetables",
+    "october": "Avoid fast food",
+    "november": "Practice mindful eating",
+    "december": "Reflect on your eating habits"
+}
+
+
+def monthly_challenge_bynumber(request, month):
+    return HttpResponse(month)
+# selanjutnya kita akan buat agar ini juga terhubung dengan variabel.
+
+def monthly_challenge(request, month):
+    try:
+        challenge_text = monthly_challenges[month]
+    except KeyError:
+        return HttpResponseNotFound("this month is not supported")
+# keyError digunakan untuk except hanya menangkap kesalahan berupa tidak adanya kata kunci dalam variabel, jika tanpa keyError, except akan menangkap semua kesalahan bahkan jika kesalahan dalam kode try sendiri, hal ini dapat membuat kesusahan dalam debugging
+    return HttpResponse(challenge_text)
