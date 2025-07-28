@@ -1,0 +1,32 @@
+In views.py, we used a hardcoded path like this:
+
+return HttpResponseRedirect("/challenges/" + redirect_month)
+
+This is not flexible. If the URL path changes in urls.py, it can cause errors and confusion, especially in larger projects.
+Today's Solution:
+We use Django’s reverse() function to build URLs dynamically using the name of the route.
+
+What We Changed:
+In challenges/urls.py, we added a name to the path:
+
+path("<str:month>", views.monthly_challenge, name="month-challenge")
+In views.py, we changed the redirect code to:
+
+from django.urls import reverse
+
+redirect_path = reverse("month-challenge", args=[redirect_month])
+return HttpResponseRedirect(redirect_path)
+Explanation:
+reverse() builds the URL from the name ("month-challenge") and the argument (redirect_month).
+
+This way, if the URL structure changes, we only need to update urls.py.
+
+Summary:
+Using reverse():
+
+Makes the code cleaner and more flexible
+
+Prevents bugs when URLs change
+
+Is a recommended Django best practice
+

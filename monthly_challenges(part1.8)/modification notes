@@ -1,0 +1,20 @@
+Documentation - Daily Progress
+Topic: Rendering HTML Response in Django Views
+
+Description:
+Today's session focused on improving the way the monthly_challenge view handles user responses. Previously, the response was returned as plain text. This approach was updated to return a proper HTML response using Django's HttpResponse.
+
+Updated Code in views.py:
+def monthly_challenge(request, month):
+    try:
+        challenge_text = monthly_challenges[month]
+        response_data = f"<h1>{challenge_text}</h1>"
+        return HttpResponse(response_data)
+    except KeyError:
+        return HttpResponseNotFound("<h1>this month is not supported</h1>")
+Impact:
+This change ensures that the browser correctly renders the content as HTML. When the view is accessed and inspected through the browser's developer tools, the content is now wrapped in HTML tags and interpreted accordingly by the browser.
+
+Next Steps:
+In the following sessions, the project will begin incorporating structured HTML templates and CSS styling to further align the web application's appearance with real-world standards.
+
